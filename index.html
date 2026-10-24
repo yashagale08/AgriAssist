@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AgriAssist</title><link rel="stylesheet" href="style.css"></head><body>
+<header class="topbar"><a class="brand" href="#home"><span class="logo">🌱</span><span><b>AgriAssist</b><small>Smart Farming, Better Tomorrow</small></span></a><div class="top-actions"><select id="languageSelect" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option></select><button id="themeToggle" class="round">☼</button></div></header>
+<section class="hero"><div><h1 id="heroTitle">Crop Recommendation</h1><p id="heroSubtitle">Get crop suggestions based on temperature, rainfall and humidity.</p></div><i>Healthy Soil<br>Happy Farmers<br>Green Future</i></section>
+<div class="layout"><aside class="sidebar"><nav><a href="#home" data-page="home">⌂　Home</a><a href="#chatbot" data-page="chatbot">▣　Chatbot</a><a href="#crop" data-page="crop" class="active">🌿　Crop Recommendation</a><a href="#crop-price" data-page="crop-price">▥　Crop Price Prediction</a><a href="#history" data-page="history">◷　History</a><a href="#settings" data-page="settings">⚙　Settings</a></nav><div class="farm-art">☀<br>🌾　🚜<br>🌱🌿🌱🌿</div><p class="quote">“Better information<br>leads to better harvests.”</p></aside>
+<main class="main">
+<section id="page-home" class="page panel hidden"><h2>🌱 Welcome to AgriAssist</h2><p>Your smart farming companion. Choose a feature to get started.</p><div class="tiles"><button data-go="crop">🌱<b>Crop Recommendation</b><small>Find crops suited to your soil, water and season.</small></button><button data-go="chatbot">🤖<b>AgriAssist Chatbot</b><small>Ask farming questions.</small></button><button data-go="crop-price">📈<b>Crop Price Prediction</b><small>Estimate crop prices with your model.</small></button><button data-go="history">🕘<b>History</b><small>Review this session's predictions.</small></button></div></section>
+<section id="page-crop" class="page panel"><div class="heading"><span>🌱</span><div><h2>Enter Your Agricultural Details</h2><p>Enter the weather details to get a crop recommendation.</p></div></div><form id="cropForm">
+<label class="field"><span>🌡</span><div><b>Temperature (°C)</b><small>Enter the current or expected temperature.</small><input id="temp" type="number" min="0" max="60" step="0.1" placeholder="e.g. 25" required></div></label>
+<label class="field"><span>🌧</span><div><b>Rainfall (mm)</b><small>Enter the expected rainfall amount.</small><input id="rain" type="number" min="0" max="500" step="0.1" placeholder="e.g. 200" required></div></label>
+<label class="field"><span>💧</span><div><b>Humidity (%)</b><small>Enter humidity from 0 to 100.</small><input id="humidity" type="number" min="0" max="100" step="0.1" placeholder="e.g. 80" required></div></label>
+<button class="primary" type="submit">🌿　Get Crop Recommendation</button><p id="cropStatus" class="status"></p></form><div class="result"><h3>🌱 Recommended Crop</h3><p id="cropDetails">Your recommended crop will appear here after you submit the details.</p><b id="cropName"></b></div></section>
+<section id="page-crop-price" class="page panel hidden"><div class="heading"><span>📈</span><div><h2>Crop Price Prediction</h2><p>Select a crop to estimate its price using available historical data.</p></div></div><form id="priceForm"><label class="field"><span>🌾</span><div><b>Crop</b><small>Select a crop available in your database.</small><select id="priceCrop" required><option value="">Loading crops…</option></select></div></label><button class="primary" type="submit">📈　Predict Crop Price</button><p id="priceStatus" class="status"></p></form><div class="result"><h3>💰 Predicted Crop Price</h3><p id="priceDetails">Your predicted price will appear here after submitting the details.</p><b id="priceResult"></b></div>
+<div class="result" id="liveMarketPanel">
+  <div class="heading">
+    <span>🌾</span>
+    <div>
+      <h2 id="liveMarketHeading">Live Agricultural Market Prices</h2>
+      <p id="liveMarketIntro">Search reported market prices by state and district across India.</p>
+    </div>
+  </div>
+  <form id="liveMarketForm">
+    <label class="field">
+      <span>📍</span>
+      <div>
+        <b id="marketStateLabel">State / Union Territory</b>
+        <small id="marketStateHelp">Enter the state you want to search.</small>
+        <input id="marketState" type="text" placeholder="e.g. Maharashtra, Punjab, Karnataka" autocomplete="address-level1" required>
+      </div>
+    </label>
+    <label class="field">
+      <span>🏙️</span>
+      <div>
+        <b id="marketDistrictLabel">District</b>
+        <small id="marketDistrictHelp">Enter a district in that state.</small>
+        <input id="marketDistrict" type="text" placeholder="e.g. Nashik, Pune, Amritsar" autocomplete="address-level2" required>
+      </div>
+    </label>
+    <button class="secondary" type="submit" id="liveMarketBtn">🌾 Check Market Prices</button>
+    <p id="liveMarketStatus" class="status" aria-live="polite"></p>
+  </form>
+  <p id="liveMarketDetails">Enter a state and district, then click Check Market Prices.</p>
+  <div id="liveMarketRecords"></div>
+  <p class="muted" id="liveMarketNote">These are reported market prices, not guaranteed future prices. Availability depends on the records provided by the market data source.</p>
+</div></section>
+<section id="page-chatbot" class="page panel hidden"><div class="chat-head"><span class="bot">✿</span><div><h2>AgriAssist Chatbot</h2><p>Ask your farming questions in your preferred language.</p></div><select id="chatLanguage"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option></select></div><div id="messages" class="messages"><div class="bubble">Hello! 👋<br>I am AgriAssist, your AI farming assistant.<br>How can I help you today?</div><div class="quick"><button data-prompt="Help me with crop recommendation">🌿 Crop recommendation</button><button data-prompt="How can I predict crop prices?">📈 Crop price prediction</button><button data-prompt="Give me farming tips">💡 Farming tips</button></div></div><form id="chatForm" class="compose"><input id="chatInput" placeholder="Type your message..." autocomplete="off"><button>➤</button></form><p id="chatStatus" class="status"></p></section>
+<section id="page-history" class="page panel hidden"><h2>🕘 Prediction History</h2><p>Predictions made during this browser session.</p><div id="historyList">No predictions yet.</div><button id="clearHistory" class="secondary">Clear History</button></section>
+<section id="page-settings" class="page panel hidden"><h2>⚙ Settings</h2><p>Customize your AgriAssist experience.</p><div class="setting"><span><b>Appearance</b><small>Switch between light and dark mode.</small></span><button class="secondary" id="settingsTheme">Toggle theme</button></div><div class="setting"><span><b>Language</b><small>Choose your preferred language.</small></span><select id="settingsLanguage"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option></select></div><p class="muted">API endpoints can be configured in script.js.</p></section>
+</main></div><footer><b>AgriAssist AI</b>　|　 Empowering Farmers with Smart Solutions <span>About　 Privacy　 Contact</span></footer><script src="script.js"></script></body></html>
